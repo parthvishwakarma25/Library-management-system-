@@ -1,0 +1,3 @@
+package com.vityarthi.library;
+import com.vityarthi.library.db.Database;import com.vityarthi.library.repository.*;import com.vityarthi.library.service.*;import com.vityarthi.library.ui.ConsoleUI;import java.math.BigDecimal;
+public class Main {public static void main(String[] args){Database.initialize();UserRepository u=new UserRepository();BookRepository b=new BookRepository();LoanRepository l=new LoanRepository();ReservationRepository r=new ReservationRepository();u.seed();b.seed();FineEngine f=new FineEngine(0,new BigDecimal("5.00"));new ConsoleUI(new AuthenticationService(u),new LibraryService(b,u,l,r,f),new ReportService(b,u,l,r,f)).start();}}

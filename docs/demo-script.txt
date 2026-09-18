@@ -1,0 +1,8 @@
+mvn clean test
+mvn clean package
+mvn exec:java -Dexec.mainClass="com.vityarthi.library.Main"
+
+Demo:
+alice / alice123 -> catalogue
+librarian / lib123 -> issue/return
+admin / admin123 -> reports

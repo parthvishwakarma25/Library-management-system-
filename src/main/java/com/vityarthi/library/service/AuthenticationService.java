@@ -1,0 +1,3 @@
+package com.vityarthi.library.service;
+import com.vityarthi.library.model.User; import com.vityarthi.library.repository.UserRepository;
+public class AuthenticationService {private final UserRepository users; public AuthenticationService(UserRepository u){users=u;} public User login(String u,String p){return users.find(u).filter(x->x.getPassword().equals(p)).orElseThrow(()->new IllegalArgumentException("Invalid username or password."));}}

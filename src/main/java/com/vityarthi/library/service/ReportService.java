@@ -1,0 +1,7 @@
+package com.vityarthi.library.service;
+import com.vityarthi.library.model.*; import com.vityarthi.library.repository.*; import java.math.*; import java.time.*;
+public class ReportService {
+ private final BookRepository books;private final UserRepository users;private final LoanRepository loans;private final ReservationRepository reservations;private final FineEngine fine;
+ public ReportService(BookRepository b,UserRepository u,LoanRepository l,ReservationRepository r,FineEngine f){books=b;users=u;loans=l;reservations=r;fine=f;}
+ public void printAll(LocalDate today){System.out.println("\nCATALOGUE");books.all().forEach(System.out::println);System.out.println("\nLOANS");loans.all().forEach(System.out::println);System.out.println("\nOVERDUE");loans.all().stream().filter(x->x.getReturnDate()==null&&today.isAfter(x.getDueDate())).forEach(x->System.out.println(x+" | projectedFine=₹"+fine.calculateFine(x.getDueDate(),today)));System.out.println("\nRESERVATIONS");reservations.allWaiting().forEach(System.out::println);BigDecimal total=loans.all().stream().map(Loan::getFine).reduce(BigDecimal.ZERO,BigDecimal::add);System.out.println("\nTotal recorded fines: ₹"+total);System.out.println("\nUSERS");users.all().forEach(System.out::println);}
+}
